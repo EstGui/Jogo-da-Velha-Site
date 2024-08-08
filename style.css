@@ -1,0 +1,225 @@
+
+/* VARIABLES */
+:root {
+    --bg-color: #121212;
+    --shadow-1: #555;
+    --hights: #BBB;
+
+    --line-width: 16px;
+}
+
+
+
+/* RESET */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+button {
+    font: inherit;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+
+
+/* GERAL */
+body {
+    background: var(--bg-color);
+    transition: 1.5s;
+}
+
+nav {
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+button {
+    color: var(--hights);
+    font-size: 28px;
+    font-weight: var(--fw-300);
+    text-transform: capitalize;
+    padding: 8px 10px;
+}
+
+#title {
+    position: absolute;
+    top: 6%;
+    left: 50%;
+    transform: translate(-50%, -6%);
+}
+
+#title > h1 {
+    color: var(--hights);
+    font-family: "Arsenal SC";
+    font-size: 3em;
+    /* font-weight: 200; */
+
+
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Padrão */
+}
+
+main {
+    perspective: 1000px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* main::after {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    color: #F00;
+    z-index: 5;
+} */
+
+#board {
+    width: 500px;
+    height: 500px;
+    background: var(--bg-color);
+    border-radius: 17px;
+    transform: translate(0, 10%);
+    /* box-shadow: 0 0 50px var(--shadow-1); */
+    /* animation: rotate 2s ease; */
+    backdrop-filter: blur(10px);
+}
+
+.horizontal_line, 
+.vertical_line {
+    position: absolute;
+    background: var(--hights);
+    border-radius: 17px;
+    z-index: 1;
+}
+
+.horizontal_line {
+    width: 90%;
+    height: var(--line-width);
+    left: 5%;
+    transform: translate(0, -50%);
+}
+
+.vertical_line {
+    width: var(--line-width);
+    height: 90%;
+    top: 5%;
+    transform: translate(-50%, 0);
+}
+
+.hl1 {
+    top: 34.4%;
+}
+
+.hl2 {
+    top: 65.6%;
+}
+
+.vl1 {
+    left: 34.4%;
+}
+
+.vl2 {
+    left: 65.6%;
+}
+
+li {
+    list-style: none;
+}
+
+#board_fields {
+    width: 90%;
+    height: 90%;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.play_field {
+    position: relative;
+    width: calc(100% / 3 - 11px);
+    height: calc(100% / 3 - 11px);
+    z-index: 0;
+    color: var(--hights);
+}
+
+.play_field:hover > .show {
+    opacity: 1;
+}
+
+
+.line {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 62%;
+    height: 12px;
+    background: var(--hights);
+    border-radius: 7px;
+}
+
+.l1 {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.l2 {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.X, .O{
+    opacity: 0;
+    transition: .35s ease-in;
+    transition-delay: .35s;
+}
+
+.O {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    width: 52%;
+    height: 52%;
+    border: 11px solid var(--hights);
+}
+
+.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotateY(12deg) rotateX(-15deg);
+        opacity: 0;
+    }
+    to {
+        transform: rotateY(0deg) rotateX(0deg);
+        opacity: 1;
+    }
+}
