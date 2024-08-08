@@ -1,0 +1,61 @@
+nav {
+    visibility: hidden;
+    display: none;
+}
+
+
+#title {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+#title > h1 {
+    font-size: 2.4em;
+}
+
+
+#board {
+    width: 350px;
+    height: 350px;
+
+    border-radius: 17px;
+    transform: translate(0, 10%);
+    backdrop-filter: blur(10px);
+}
+
+.horizontal_line, 
+.vertical_line {
+    position: absolute;
+    border-radius: 17px;
+    z-index: 1;
+}
+
+.horizontal_line {
+    width: 90%;
+    left: 5%;
+    transform: translate(0, -50%);
+}
+
+.vertical_line {
+    height: 90%;
+    top: 5%;
+    transform: translate(-50%, 0);
+}
+
+.hl1 {
+    top: 34.4%;
+}
+
+.hl2 {
+    top: 65.6%;
+}
+
+.vl1 {
+    left: 34.4%;
+}
+
+.vl2 {
+    left: 65.6%;
+}
