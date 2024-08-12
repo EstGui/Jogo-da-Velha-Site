@@ -2,21 +2,48 @@
 document.addEventListener('DOMContentLoaded', () => {
     const boardFields = document.querySelectorAll('.play_field');
     const board = [['', '', ''], ['', '', ''], ['', '', '']];
+    const slider = document.querySelector('#playerCheckbox')
+
+    const menuCheckBox = document.querySelector('#menu')
+
+
+    slider.addEventListener("change", () => {
+        console.log(slider.checked)
+        if (slider.checked) {
+            boardFields.forEach(item => {
+                const child = item.querySelector(`.${player(board)}`)
+            
+                if (!item.querySelector('.active'))
+                    child.classList.add('view');
+            })
+        }
+    })
+
+    menuCheckBox.addEventListener('change', () => {
+        const aside = document.querySelector('aside');
+
+        if (menuCheckBox.checked) {
+            aside.style.left = '0'
+        } else {
+            aside.style.left = '-280px'
+        }
+    })
     
     initialize(boardFields, board);
 
     document.documentElement.style.setProperty('--current-player', player(board));
 });
 
+
 async function initialize(board_fields, board) {
-    if (player(board) == 'X') {
-        const play = await AIplay(board)
-        const element = board_fields[play].querySelector(`.${player(board)}`)
-        element.classList.add('active')
-        board_fields[play].dataset.value = player(board);
-        board = updateBoard(board, board_fields)
-    }
-    updateBoard(board, board_fields);
+    // if (player(board) == 'X') {
+    //     const play = await AIplay(board)
+    //     const element = board_fields[play].querySelector(`.${player(board)}`)
+    //     element.classList.add('active')
+    //     board_fields[play].dataset.value = player(board);
+    //     board = updateBoard(board, board_fields)
+    // }
+    // updateBoard(board, board_fields);
 
     board_fields.forEach(item => {
         item.addEventListener('click', async () => {
@@ -29,15 +56,13 @@ async function initialize(board_fields, board) {
                 board = updateBoard(board, board_fields);
             }
             
-            if (player(board) == 'X') {
-                const play = await AIplay(board)
-                const element = board_fields[play].querySelector(`.${player(board)}`)
-                element.classList.add('active')
-                board_fields[play].dataset.value = player(board);
-                board = updateBoard(board, board_fields)
-            }
-            console.log(board)
-            console.log(player(board))
+            // if (player(board) == 'X') {
+            //     const play = await AIplay(board)
+            //     const element = board_fields[play].querySelector(`.${player(board)}`)
+            //     element.classList.add('active')
+            //     board_fields[play].dataset.value = player(board);
+            //     board = updateBoard(board, board_fields)
+            // }
         })
         
         item.addEventListener('mouseover', () => {
@@ -86,7 +111,7 @@ function player(state) {
 
 
 async function AIplay(state) {
-    const response = await fetch('https://jogo-da-velha-api-58hq.onrender.com/play/', {
+    const response = await fetch('', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

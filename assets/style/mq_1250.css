@@ -1,0 +1,49 @@
+:root {
+    --line-width: 2px;
+}
+
+body {
+    display: grid;
+    
+}
+
+nav {
+    padding: 0 10px;
+    justify-content: space-between;
+}
+
+button {
+    font-size: 28px;
+}
+
+#title {
+    top: 13%;
+    transform: translate(-50%, -12%);
+}
+
+#title > h1 {
+    font-size: 2.7em;
+    letter-spacing: -.75px;
+}
+
+#board {
+    width: 400px;
+    height: 400px;
+    border-radius: 17px;
+}
+
+.horizontal_line {
+    height: var(--line-width);
+}
+
+.vertical_line {
+    width: var(--line-width);
+}
+
+.line {
+    height: 8px;
+}
+
+.O {
+    border: 8px solid var(--hights);
+}

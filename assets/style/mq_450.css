@@ -1,61 +1,65 @@
-nav {
-    visibility: hidden;
-    display: none;
+:root {
+    --line-width: 2px;
 }
 
+nav {
+    padding: 0 10px;
+    justify-content: space-between;
+}
+
+button {
+    font-size: 24px;
+}
 
 #title {
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%, 0);
+    top: 15%;
+    transform: translate(-50%, -10%);
 }
 
 #title > h1 {
-    font-size: 2.4em;
+    font-size: 1.8em;
 }
 
+main {
+    top: 51%;
+}
 
 #board {
-    width: 350px;
-    height: 350px;
-
+    width: 340px;
+    height: 340px;
     border-radius: 17px;
-    transform: translate(0, 10%);
-    backdrop-filter: blur(10px);
-}
-
-.horizontal_line, 
-.vertical_line {
-    position: absolute;
-    border-radius: 17px;
-    z-index: 1;
 }
 
 .horizontal_line {
-    width: 90%;
-    left: 5%;
-    transform: translate(0, -50%);
+    height: var(--line-width);
 }
 
 .vertical_line {
-    height: 90%;
-    top: 5%;
-    transform: translate(-50%, 0);
+    width: var(--line-width);
 }
 
-.hl1 {
-    top: 34.4%;
+.line {
+    height: 8px;
 }
 
-.hl2 {
-    top: 65.6%;
+.O {
+    border: 8px solid var(--hights);
 }
 
-.vl1 {
-    left: 34.4%;
+
+#aimode {
+    display: none;
+    visibility: hidden;
 }
 
-.vl2 {
-    left: 65.6%;
+#player {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: white;
+}
+
+#player > h3 {
+    font-weight: 300;
 }

@@ -1,0 +1,43 @@
+:root {
+    --line-width: 5px;
+}
+
+nav {
+    padding: 0 10px;
+    justify-content: space-between;
+}
+
+button {
+    font-size: 24px;
+}
+
+#title {
+    top: 15%;
+    transform: translate(-50%, -10%);
+}
+
+#title > h1 {
+    font-size: 2.4em;
+}
+
+#board {
+    width: 340px;
+    height: 340px;
+    border-radius: 17px;
+}
+
+.horizontal_line {
+    height: var(--line-width);
+}
+
+.vertical_line {
+    width: var(--line-width);
+}
+
+.line {
+    height: 8px;
+}
+
+.O {
+    border: 8px solid var(--hights);
+}
