@@ -1,22 +1,41 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     const boardFields = document.querySelectorAll('.play_field');
-    const board = [['', '', ''], ['', '', ''], ['', '', '']];
+    var board = [['', '', ''], ['', '', ''], ['', '', '']];
     const slider = document.querySelector('#playerCheckbox')
 
     const menuCheckBox = document.querySelector('#menu')
 
 
-    slider.addEventListener("change", () => {
-        console.log(slider.checked)
-        if (slider.checked) {
-            boardFields.forEach(item => {
-                const child = item.querySelector(`.${player(board)}`)
+    // slider.addEventListener("change", () => {
+    //     if (slider.checked) {
+    //         boardFields.forEach(item => {
+    //             const child = item.querySelector(`.${player(board)}`)
             
-                if (!item.querySelector('.active'))
-                    child.classList.add('view');
-            })
-        }
+    //             if (!item.querySelector('.active'))
+    //                 child.classList.add('view');
+    //         })
+    //     }
+    // })
+
+    slider.addEventListener("change", () => {
+        const xones = document.querySelectorAll(".X")
+        const oones = document.querySelectorAll(".O")
+
+        xones.forEach(item => {
+            item.classList.remove("active")
+            // item.classList.remove("X")
+        })
+        oones.forEach(item => {
+            item.classList.remove("active")
+            // item.classList.remove("O")
+        })
+
+        boardFields.forEach(item => {
+            delete item.dataset.value
+        })
+
+        board = updateBoard(board, boardFields)
     })
 
     menuCheckBox.addEventListener('change', () => {
@@ -29,21 +48,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
     
-    initialize(boardFields, board);
-
-    document.documentElement.style.setProperty('--current-player', player(board));
+    initialize(boardFields, board, slider);
 });
 
 
-async function initialize(board_fields, board) {
-    // if (player(board) == 'X') {
-    //     const play = await AIplay(board)
-    //     const element = board_fields[play].querySelector(`.${player(board)}`)
-    //     element.classList.add('active')
-    //     board_fields[play].dataset.value = player(board);
-    //     board = updateBoard(board, board_fields)
-    // }
-    // updateBoard(board, board_fields);
+async function initialize(board_fields, board, slider) {
+    if (slider.checked) {
+        const play = await AIplay(board)
+        const element = board_fields[play].querySelector(`.${player(board)}`)
+        element.classList.add('active')
+        board_fields[play].dataset.value = player(board);
+        board = updateBoard(board, board_fields)
+    }
 
     board_fields.forEach(item => {
         item.addEventListener('click', async () => {
@@ -56,13 +72,11 @@ async function initialize(board_fields, board) {
                 board = updateBoard(board, board_fields);
             }
             
-            // if (player(board) == 'X') {
-            //     const play = await AIplay(board)
-            //     const element = board_fields[play].querySelector(`.${player(board)}`)
-            //     element.classList.add('active')
-            //     board_fields[play].dataset.value = player(board);
-            //     board = updateBoard(board, board_fields)
-            // }
+            const play = await AIplay(board)
+            const element = board_fields[play].querySelector(`.${player(board)}`)
+            element.classList.add('active')
+            board_fields[play].dataset.value = player(board);
+            board = updateBoard(board, board_fields)
         })
         
         item.addEventListener('mouseover', () => {
@@ -111,7 +125,7 @@ function player(state) {
 
 
 async function AIplay(state) {
-    const response = await fetch('', {
+    const response = await fetch('https://jogo-da-velha-api-58hq.onrender.com/play/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
