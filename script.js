@@ -6,41 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const menuCheckBox = document.querySelector('#menu')
 
-
-    // slider.addEventListener("change", () => {
-    //     if (slider.checked) {
-    //         boardFields.forEach(item => {
-    //             const child = item.querySelector(`.${player(board)}`)
-            
-    //             if (!item.querySelector('.active'))
-    //                 child.classList.add('view');
-    //         })
-    //     }
-    // })
-
-    slider.addEventListener("change", () => {
-        const xones = document.querySelectorAll(".X")
-        const oones = document.querySelectorAll(".O")
-
-        xones.forEach(item => {
-            item.classList.remove("active")
-            // item.classList.remove("X")
-        })
-        oones.forEach(item => {
-            item.classList.remove("active")
-            // item.classList.remove("O")
-        })
-
-        boardFields.forEach(item => {
-            delete item.dataset.value
-        })
-
-        board = updateBoard(board, boardFields)
-    })
-
+    
+    
     menuCheckBox.addEventListener('change', () => {
         const aside = document.querySelector('aside');
-
+        
         if (menuCheckBox.checked) {
             aside.style.left = '0'
         } else {
@@ -51,11 +21,42 @@ document.addEventListener('DOMContentLoaded', () => {
     initialize(boardFields, board, slider);
 });
 
+function updateHints(boardFields, board) {
+    boardFields.forEach(item => {
+        const pastView = item.querySelector(".view")
+        const child = item.querySelector(`.${player(board)}`)
+        
+        if (pastView) {
+            pastView.classList.remove("view")
+        }
+        
+        if (!item.querySelector('.active'))
+            child.classList.add('view');
+    })
+}
+
 
 async function initialize(board_fields, board, slider) {
+    slider.addEventListener("change", () => {
+        const activeOnes = document.querySelectorAll('.active')
+    
+        activeOnes.forEach(item => {
+            const parent = item.parentElement
+            delete parent.dataset.value
+            item.classList.remove('active')
+        })
+        board_fields.forEach(item => item.dataset.value = "")
+        console.log(board)
+        board = updateBoard(board, board_fields)
+        console.log(board)
+    })
+
+    updateHints(board_fields, board)
     if (slider.checked) {
         const play = await AIplay(board)
         const element = board_fields[play].querySelector(`.${player(board)}`)
+        element.classList.remove('view')
+        element.classList.remove('show')
         element.classList.add('active')
         board_fields[play].dataset.value = player(board);
         board = updateBoard(board, board_fields)
@@ -66,6 +67,8 @@ async function initialize(board_fields, board, slider) {
             const child = item.querySelector(`.${player(board)}`);
 
             if (!item.querySelector('.active')) {
+                child.classList.remove('view')
+                child.classList.remove('show')
                 child.classList.add('active')
                 item.dataset.value = player(board);
                 
@@ -74,6 +77,8 @@ async function initialize(board_fields, board, slider) {
             
             const play = await AIplay(board)
             const element = board_fields[play].querySelector(`.${player(board)}`)
+            element.classList.remove('view')
+            element.classList.remove('show')
             element.classList.add('active')
             board_fields[play].dataset.value = player(board);
             board = updateBoard(board, board_fields)
@@ -103,6 +108,8 @@ function updateBoard(board, board_fields) {
         const col = index % 3;
         board[row][col] = item.dataset.value;
     });
+
+    updateHints(board_fields, board)
 
     return board
 }
